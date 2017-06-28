@@ -76,7 +76,8 @@ class Midnight::Repeater < Chronic::Tag #:nodoc:
       /^th(urs|ers)day?s?$/ => :thursday,
       /^thu$/ => :thursday,
       /^fr[iy](day)?s?$/ => :friday,
-      /^sat(t?[ue]rday)?s?$/ => :saturday
+      /^sat(t?[ue]rday)?s?$/ => :saturday,
+      /^weekday?s?$/ => :weekdays 
     }
 
     day_sequence = {
@@ -86,11 +87,15 @@ class Midnight::Repeater < Chronic::Tag #:nodoc:
       :wednesday => 3,
       :thursday => 4,
       :friday => 5,
-      :saturday => 6
+      :saturday => 6,
+	  :weekdays => '1-5'
     }
-
     scanner.each do |scanner_item, day|
+	#puts day
+	#puts scanner_item.inspect
+		#puts(token.inspect)
       position_in_sequence = day_sequence[day]
+	  #puts (position_in_sequence);
       token.update(:weekday, scanner[scanner_item], 7, position_in_sequence) if scanner_item =~ token.word
     end
     token

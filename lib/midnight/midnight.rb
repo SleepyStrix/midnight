@@ -29,16 +29,13 @@ module Midnight
 
       # split into tokens
       @tokens = base_tokenize(event)
-
       # scan the tokens with each token scanner
       @tokens = Repeater.scan(@tokens)
-
+	  
       # remove all tokens without a type
       @tokens.reject! {|token| token.type.nil? }
-
       converter = Converter.new
       cron_expression = converter.convert_tokens_to_cron_expression(@tokens)
-
       return cron_expression
     end
 

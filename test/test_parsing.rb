@@ -1,4 +1,4 @@
-require 'helper'
+require './helper'
 require 'time'
 require 'test/unit'
 
@@ -41,7 +41,11 @@ class TestParsing < Test::Unit::TestCase
       'midnight on tuesdays' => '0 0 * * 2',
       'every 5 minutes on Tuesdays' => '*/5 * * * 2',
       'every other day' => nil, # other is currently unsupported
-      'noon' => '0 12 * * *'
+      'noon' => '0 12 * * *',
+	  'every weekday' => '0 0 * * 1-5',
+	  'every weekend' => nil,
+	  'each weekday' => '0 0 * * 1-5',
+	  'weekdays' => '0 0 * * 1-5'
     }
 
     expected_results.each do |search,cron_string|
